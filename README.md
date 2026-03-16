@@ -10,10 +10,10 @@ liệu (Database)** để bạn dễ dàng quản lý.
 
 # 📁 Cấu Trúc Thư Mục Dự Án
 
-Hãy đảm bảo thư mục dự án của bạn (ví dụ: `E:\BKMT\English`) có cấu trúc
-chính xác như sau:
+Hãy đảm bảo thư mục dự án của bạn (ví dụ: `E:\BKE`) có cấu trúc chính
+xác như sau:
 
-    English/
+    BKE/
      ├── server.js              # File mã nguồn Backend (Node.js)
      ├── database.xlsx          # File dữ liệu từ vựng (Sẽ tự động sinh ra khi bạn lưu từ)
      ├── package.json           # File quản lý thư viện của Node.js
@@ -45,7 +45,7 @@ Excel.
 ```{=html}
 <!-- -->
 ```
-    E:\BKMT\English
+    E:\BKE
 
 2.  Mở cửa sổ dòng lệnh (**Terminal / Command Prompt / PowerShell**) tại
     thư mục này.
@@ -82,7 +82,7 @@ Mỗi khi muốn học từ vựng, bạn làm theo **2 bước đơn giản** s
 
 ## Bước 1: Khởi động Server (Backend)
 
-Mở Terminal tại thư mục **English** và chạy lệnh:
+Mở Terminal tại thư mục **BKE** và chạy lệnh:
 
 ``` bash
 node server.js
@@ -183,7 +183,7 @@ tiếp vào file:**
 
     database.xlsx
 
-File này nằm **cùng thư mục với `server.js`**.
+File này nằm **cùng thư mục với `server.js`** trong thư mục **BKE**.
 
 📌 Đây chính là **"tài sản dữ liệu" của bạn**, hãy sao lưu và lưu trữ
 cẩn thận.
