@@ -3,6 +3,7 @@ const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
 const XLSX = require('xlsx');
+const { exec } = require('child_process'); // Thêm thư viện gọi lệnh hệ thống (có sẵn của Node.js)
 
 const app = express();
 const PORT = 3000;
@@ -66,6 +67,10 @@ app.post('/api/words', (req, res) => {
 
 // Khởi động server
 app.listen(PORT, () => {
-    console.log(`Server đang chạy tại: http://localhost:${PORT}`);
-    console.log(`Frontend đang phục vụ file public/index.html`);
+    const url = `http://localhost:${PORT}`;
+    console.log(`Server đang chạy tại: ${url}`);
+    
+    // Tự động mở trình duyệt tùy theo hệ điều hành (Windows, macOS, Linux)
+    const startCommand = process.platform === 'darwin' ? 'open' : process.platform === 'win32' ? 'start' : 'xdg-open';
+    exec(`${startCommand} ${url}`);
 });
