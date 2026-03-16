@@ -1,5 +1,3 @@
-<!-- Giữ nguyên toàn bộ phần thẻ <head>, <style>, <header>, <main>, <footer> của bạn -->
-<!-- Chỉ thay thế toàn bộ thẻ <script> ở cuối cùng thành đoạn dưới đây: -->
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -65,7 +63,6 @@
                 <i class="fas fa-graduation-cap mr-2"></i> Luyện Từ Vựng
             </h1>
             <div class="flex gap-2">
-                <!-- Nút Sao lưu đã được đổi thành Lưu Đồng Bộ (Do file Excel đang là DB) -->
                 <button onclick="syncDataToServer()" class="px-3 sm:px-4 py-2 rounded-lg font-medium transition-colors bg-green-50 text-green-700 hover:bg-green-100 text-sm sm:text-base flex items-center" title="Lưu cưỡng bức lên Server">
                     <i class="fas fa-save sm:mr-2"></i><span class="hidden sm:inline">Lưu Server</span>
                 </button>
@@ -76,8 +73,8 @@
         </div>
     </header>
 
-    <!-- NỘI DUNG CHÍNH (GIỮ NGUYÊN HTML NHƯ BẢN TRƯỚC CỦA BẠN) -->
     <main class="flex-grow max-w-5xl mx-auto w-full px-4 py-8 sm:px-6 lg:px-8">
+        
         <!-- SECTION: MANAGE VOCAB -->
         <section id="view-manage" class="block">
             <div id="manage-categories-view" class="block bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
@@ -171,16 +168,16 @@
                     <div class="flip-box-inner">
                         <div class="flip-box-front bg-white border-2 border-indigo-100 relative">
                             <button id="flashcard-star-front" onclick="toggleHardFlashcard(event)" class="absolute top-4 left-4 w-10 h-10 rounded-full flex items-center justify-center transition-colors text-2xl z-10" title="Đánh dấu từ khó"><i class="far fa-star text-slate-300 hover:text-amber-400"></i></button>
-                            <h2 id="card-en" class="text-4xl sm:text-5xl font-bold text-slate-800 mb-2" data-word="">Word <span class="text-2xl sm:text-3xl text-slate-400 font-normal">()</span></h2>
-                            <p id="card-pron" class="text-slate-500 font-mono text-lg mb-4">/pron/</p>
+                            <h2 id="card-en" class="text-4xl sm:text-5xl font-bold text-slate-800 mb-2" data-word="">Đang tải... <span class="text-2xl sm:text-3xl text-slate-400 font-normal">()</span></h2>
+                            <p id="card-pron" class="text-slate-500 font-mono text-lg mb-4"></p>
                             <button onclick="playAudio(event, document.getElementById('card-en').getAttribute('data-word'))" class="w-12 h-12 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center hover:bg-indigo-200 transition-colors" title="Nghe phát âm"><i class="fas fa-volume-up text-xl"></i></button>
                         </div>
                         <div class="flip-box-back bg-indigo-600 border-2 border-indigo-600 text-white relative">
                             <button id="flashcard-star-back" onclick="toggleHardFlashcard(event)" class="absolute top-4 left-4 w-10 h-10 rounded-full flex items-center justify-center transition-colors text-2xl z-10" title="Đánh dấu từ khó"><i class="far fa-star text-white/50 hover:text-amber-300"></i></button>
                             <button onclick="playAudio(event, document.getElementById('card-back-en').getAttribute('data-word'))" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/20 text-white flex items-center justify-center hover:bg-white/40 transition-colors" title="Nghe lại tiếng Anh"><i class="fas fa-volume-up"></i></button>
-                            <div id="card-back-en" class="text-xl sm:text-2xl font-bold mb-1 text-indigo-200" data-word="">Word ()</div>
-                            <div id="card-back-pron" class="text-base sm:text-lg font-mono mb-4 text-indigo-300">/pron/</div>
-                            <h3 id="card-vi" class="text-2xl sm:text-3xl font-bold text-center px-4">Nghĩa</h3>
+                            <div id="card-back-en" class="text-xl sm:text-2xl font-bold mb-1 text-indigo-200" data-word=""></div>
+                            <div id="card-back-pron" class="text-base sm:text-lg font-mono mb-4 text-indigo-300"></div>
+                            <h3 id="card-vi" class="text-2xl sm:text-3xl font-bold text-center px-4"></h3>
                         </div>
                     </div>
                 </div>
@@ -219,35 +216,41 @@
         <!-- SECTION: TYPING GAME -->
         <section id="view-typing" class="hidden">
             <div class="mb-6 flex justify-between items-center bg-white p-4 rounded-xl shadow-sm border border-slate-200">
-                <button onclick="exitPractice()" class="text-slate-500 hover:text-emerald-600 font-medium flex items-center transition"><i class="fas fa-arrow-left mr-2"></i> Quay lại</button>
+                <button onclick="exitPractice()" class="text-slate-500 hover:text-indigo-600 font-medium flex items-center transition"><i class="fas fa-arrow-left mr-2"></i> Quay lại</button>
                 <div class="flex items-center gap-4">
-                    <div class="text-sm font-semibold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full">Câu: <span id="typing-current">1</span>/<span id="typing-total">10</span></div>
-                    <button onclick="startTypingGame()" class="text-slate-500 hover:text-emerald-600 transition" title="Chơi lại"><i class="fas fa-sync-alt"></i></button>
+                    <!-- SỬA LỖI TẠI ĐÂY: Thêm lại span đếm điểm -->
+                    <div class="text-sm font-semibold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full">Câu: <span id="typing-current">1</span>/<span id="typing-total">10</span> | Điểm: <span id="typing-score">0</span></div>
+                    <button onclick="startTypingGame()" class="text-slate-500 hover:text-indigo-600 transition" title="Chơi lại"><i class="fas fa-sync-alt"></i></button>
                 </div>
             </div>
             <div class="max-w-xl mx-auto bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200 text-center">
                 <div class="mb-8">
                     <div class="flex justify-center items-center gap-3 mb-2">
-                        <h3 id="typing-vi-text" class="text-2xl sm:text-3xl font-bold text-slate-800">Sự thành thạo</h3>
+                        <h3 id="typing-vi-text" class="text-2xl sm:text-3xl font-bold text-slate-800">Đang tải...</h3>
                         <button id="typing-star" onclick="toggleHardTyping(event)" class="text-2xl transition-colors focus:outline-none" title="Đánh dấu từ khó"><i class="far fa-star text-slate-300"></i></button>
                     </div>
-                    <p id="typing-pos-text" class="text-slate-500 font-mono text-lg mb-2">Loại từ: (n)</p>
-                </div>
-                <div class="mb-4 relative">
-                    <input type="text" id="typing-input" autocomplete="off" placeholder="Nhập từ tiếng Anh..." class="w-full px-6 py-4 text-xl border-2 border-slate-200 rounded-xl focus:outline-none focus:border-emerald-500 transition-colors text-center" onkeypress="if(event.key === 'Enter') checkTypingAnswer()">
-                    <div class="flex gap-2 mt-4">
-                        <button onclick="showHint()" id="typing-hint-btn" class="flex-1 sm:flex-none sm:w-32 py-4 bg-amber-100 text-amber-700 font-bold rounded-xl hover:bg-amber-200"><i class="far fa-lightbulb sm:mr-2"></i> Gợi ý</button>
-                        <button onclick="checkTypingAnswer()" id="typing-submit-btn" class="flex-[2] sm:flex-1 py-4 bg-emerald-600 text-white font-bold rounded-xl hover:bg-emerald-700">Kiểm tra</button>
-                        <button onclick="skipTypingQuestion()" id="typing-skip-btn" class="flex-1 sm:flex-none sm:w-32 py-4 bg-slate-200 text-slate-600 font-bold rounded-xl hover:bg-slate-300">Bỏ qua</button>
+                    <div class="flex justify-center items-center gap-3">
+                        <p id="typing-pos-text" class="font-mono text-lg text-slate-500"></p>
+                        <button onclick="playTypingAudio(event)" class="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center hover:bg-indigo-200 transition-colors" title="Nghe phát âm">
+                            <i class="fas fa-volume-up text-sm"></i>
+                        </button>
                     </div>
                 </div>
-                <div id="typing-feedback" class="h-10 flex items-center justify-center text-lg font-semibold rounded-lg opacity-0 transition-opacity"></div>
+                <div class="mb-4 relative">
+                    <input type="text" id="typing-input" autocomplete="off" placeholder="Nhập từ tiếng Anh..." class="w-full px-6 py-4 text-xl border-2 border-indigo-200 rounded-xl focus:outline-none focus:border-indigo-500 bg-indigo-50/30 transition-colors text-center text-indigo-900" onkeypress="if(event.key === 'Enter') checkTypingAnswer()">
+                    <div class="flex gap-2 mt-4">
+                        <button onclick="showHint()" id="typing-hint-btn" class="flex-1 sm:flex-none sm:w-32 py-4 bg-amber-100 text-amber-700 font-bold rounded-xl hover:bg-amber-200 transition-colors flex items-center justify-center"><i class="far fa-lightbulb sm:mr-2"></i> <span class="hidden sm:inline">Gợi ý</span></button>
+                        <button onclick="checkTypingAnswer()" id="typing-submit-btn" class="flex-[2] sm:flex-1 py-4 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition-colors text-lg">Kiểm tra</button>
+                        <button onclick="skipTypingQuestion()" id="typing-skip-btn" class="flex-1 sm:flex-none sm:w-32 py-4 bg-slate-200 text-slate-600 font-bold rounded-xl hover:bg-slate-300 transition-colors flex items-center justify-center"><span class="hidden sm:inline sm:mr-2">Bỏ qua</span> <i class="fas fa-forward"></i></button>
+                    </div>
+                </div>
+                <div id="typing-feedback" class="h-10 flex items-center justify-center text-lg font-semibold rounded-lg opacity-0 transition-opacity mt-4"></div>
             </div>
             <div id="typing-win-modal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center px-4">
                 <div class="bg-white rounded-2xl p-8 max-w-sm w-full text-center shadow-2xl">
                     <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 text-blue-500"><i class="fas fa-medal text-4xl"></i></div>
                     <h2 class="text-2xl font-bold text-slate-800 mb-2">Hoàn thành!</h2>
-                    <button onclick="startTypingGame()" class="w-full py-3 bg-emerald-600 text-white rounded-xl font-bold hover:bg-emerald-700 transition">Chơi Lại Vòng Khác</button>
+                    <button onclick="startTypingGame()" class="w-full py-3 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition">Chơi Lại Vòng Khác</button>
                     <button onclick="exitPractice()" class="w-full py-3 mt-3 bg-slate-100 text-slate-600 rounded-xl font-bold hover:bg-slate-200 transition">Quay lại danh sách</button>
                 </div>
             </div>
@@ -258,17 +261,18 @@
             <div class="mb-6 flex justify-between items-center bg-white p-4 rounded-xl shadow-sm border border-slate-200">
                 <button onclick="exitPractice()" class="text-slate-500 hover:text-purple-600 font-medium flex items-center transition"><i class="fas fa-arrow-left mr-2"></i> Quay lại</button>
                 <div class="flex items-center gap-4">
-                    <div class="text-sm font-semibold text-purple-600 bg-purple-50 px-3 py-1 rounded-full">Câu: <span id="quiz-current">1</span>/<span id="quiz-total">10</span></div>
+                    <!-- SỬA LỖI TẠI ĐÂY: Thêm lại span đếm điểm -->
+                    <div class="text-sm font-semibold text-purple-600 bg-purple-50 px-3 py-1 rounded-full">Câu: <span id="quiz-current">1</span>/<span id="quiz-total">10</span> | Điểm: <span id="quiz-score">0</span></div>
                     <button onclick="startQuizGame()" class="text-slate-500 hover:text-purple-600 transition" title="Chơi lại"><i class="fas fa-sync-alt"></i></button>
                 </div>
             </div>
             <div class="max-w-2xl mx-auto bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200 text-center">
                 <div class="mb-8">
                     <div class="flex justify-center items-center gap-3 mb-2">
-                        <h3 id="quiz-en-text" class="text-4xl sm:text-5xl font-bold text-slate-800">Expertise</h3>
+                        <h3 id="quiz-en-text" class="text-4xl sm:text-5xl font-bold text-slate-800">Đang tải...</h3>
                         <button id="quiz-star" onclick="toggleHardQuiz(event)" class="text-2xl transition-colors focus:outline-none" title="Đánh dấu từ khó"><i class="far fa-star text-slate-300"></i></button>
                     </div>
-                    <p id="quiz-pos-pron" class="text-slate-500 font-mono text-xl mb-4">/ˌekspɜːˈtiːz/ (n)</p>
+                    <p id="quiz-pos-pron" class="text-slate-500 font-mono text-xl mb-4"></p>
                     <button onclick="playAudio(event, document.getElementById('quiz-en-text').innerText)" class="w-12 h-12 rounded-full bg-purple-100 text-purple-600 inline-flex items-center justify-center hover:bg-purple-200"><i class="fas fa-volume-up text-xl"></i></button>
                 </div>
                 <div id="quiz-options" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
@@ -354,19 +358,32 @@
                     const data = await response.json();
                     vocabData = data.map(w => ({ ...w, isHard: w.isHard === true || w.isHard === 'true' }));
                 } else {
-                    console.error("Không thể kết nối đến Backend, vui lòng kiểm tra server.js");
+                    console.error("Không thể kết nối đến Backend, sử dụng LocalStorage làm dự phòng");
+                    fallbackToLocal();
                 }
             } catch (error) {
                 console.error("Lỗi Fetch:", error);
-                alert("Lỗi kết nối tới Server. Đảm bảo bạn đã chạy 'node server.js'");
+                fallbackToLocal(); // Nếu chưa bật server.js thì vẫn load được dữ liệu cũ ở LocalStorage
             }
             showLoading(false);
             showHome();
         }
 
-        // Lưu dữ liệu lên Server (Excel)
+        function fallbackToLocal() {
+            let savedVocab = localStorage.getItem('vocab_app_data');
+            if (savedVocab) {
+                vocabData = JSON.parse(savedVocab);
+                vocabData = vocabData.map(w => ({ ...w, isHard: w.isHard || false }));
+            }
+        }
+
+        // Lưu dữ liệu lên Server (Excel) và LocalStorage
         async function syncDataToServer() {
-            showLoading(true, "Đang lưu vào Excel...");
+            showLoading(true, "Đang lưu dữ liệu...");
+            
+            // Luôn lưu một bản backup ở trình duyệt cho an toàn
+            localStorage.setItem('vocab_app_data', JSON.stringify(vocabData));
+
             try {
                 const response = await fetch(API_URL, {
                     method: 'POST',
@@ -374,9 +391,7 @@
                     body: JSON.stringify(vocabData)
                 });
                 
-                if (!response.ok) {
-                    alert("Lưu thất bại! Kiểm tra server.");
-                } else {
+                if (response.ok) {
                     // Update lại UI
                     if(!document.getElementById('manage-categories-view').classList.contains('hidden')) {
                         renderCategories();
@@ -386,8 +401,14 @@
                     }
                 }
             } catch (error) {
-                console.error(error);
-                alert("Lỗi kết nối tới Server!");
+                console.warn("Chưa khởi động Server Node.js, dữ liệu đã được lưu tạm trên Trình duyệt.");
+                // Vẫn update UI kể cả khi không có server
+                if(!document.getElementById('manage-categories-view').classList.contains('hidden')) {
+                    renderCategories();
+                } else {
+                    renderCategories(); 
+                    renderVocabTable();
+                }
             }
             showLoading(false);
         }
@@ -421,12 +442,14 @@
             renderVocabTable();
         }
 
-        // --- EXCEL UPLOAD FRONTEND (Chỉ đọc file rồi tạo view preview) ---
+        // --- EXCEL UPLOAD FRONTEND ---
         let tempImportData = []; 
 
         function downloadSampleExcel() {
             const wsData = [
-                { "id": 1, "en": "Apple", "vi": "Quả táo", "pron": "/ˈæpl/", "pos": "n", "category": "Basic", "isHard": false }
+                { "English": "Apple", "Vietnamese": "Quả táo", "Pronunciation": "/ˈæpl/", "Type": "n" },
+                { "English": "Beautiful", "Vietnamese": "Xinh đẹp", "Pronunciation": "/ˈbjuːtɪfl/", "Type": "adj" },
+                { "English": "Run", "Vietnamese": "Chạy", "Pronunciation": "/rʌn/", "Type": "v" }
             ];
             const ws = XLSX.utils.json_to_sheet(wsData);
             const wb = XLSX.utils.book_new();
@@ -435,8 +458,6 @@
         }
 
         function exportToExcel() {
-            // Do server đang lưu bằng Excel gốc nên tính năng này có thể download trực tiếp
-            // Tuy nhiên để phân loại, ta vẫn dùng hàm xuất XLSX ở frontend
             if (vocabData.length === 0) return alert("Không có từ vựng nào để xuất!");
 
             let dataToExport = vocabData;
@@ -453,8 +474,8 @@
             }
 
             const wsData = dataToExport.map(w => ({
-                "en": w.en, "vi": w.vi, "pron": w.pron || '', "pos": w.pos || '',
-                "category": w.category || 'Chưa phân loại', "isHard": w.isHard
+                "English": w.en, "Vietnamese": w.vi, "Pronunciation": w.pron || '', "Type": w.pos || '',
+                "Category": w.category || 'Chưa phân loại', "Hard Word": w.isHard ? 'Yes' : ''
             }));
 
             const ws = XLSX.utils.json_to_sheet(wsData);
@@ -473,11 +494,10 @@
                 const workbook = XLSX.read(data, {type: 'array'});
                 const rows = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]], { header: 1 });
 
-                if (rows.length > 1) { // Giả định dòng 1 là header
+                if (rows.length > 1) { 
                     let enIdx = 0, viIdx = 1, pronIdx = 2, posIdx = 3, catIdx = 4;
                     const headers = rows[0].map(c => String(c).toLowerCase());
                     
-                    // Tìm index tương đối
                     enIdx = Math.max(0, headers.findIndex(h => h.includes('en') || h.includes('anh')));
                     viIdx = Math.max(1, headers.findIndex(h => h.includes('vi') || h.includes('nghĩa')));
                     
@@ -521,7 +541,7 @@
             vocabData = [...vocabData, ...finalWords];
             closeImportPreview();
             
-            await syncDataToServer(); // Đồng bộ lên Node.js
+            await syncDataToServer(); 
             alert(`Đã lưu thành công ${finalWords.length} từ vựng!`);
             openCategory(inputCat);
         }
@@ -616,7 +636,7 @@
                         <td class="p-4">${word.pron || '-'}</td>
                         <td class="p-4">${word.pos || '-'}</td>
                         <td class="p-4">${word.category || 'Chưa phân loại'}</td>
-                        <td class="p-4 text-center">
+                        <td class="p-4 text-center whitespace-nowrap">
                             <button onclick="toggleHardFromTable(${word.id})" class="${starClass} mr-2"><i class="${starIcon} fa-star"></i></button>
                             <button onclick="openWordModal(${word.id})" class="text-indigo-500 mr-2"><i class="fas fa-edit"></i></button>
                             <button onclick="deleteWord(${word.id})" class="text-red-400"><i class="fas fa-trash"></i></button>
@@ -667,7 +687,7 @@
             await syncDataToServer();
         }
 
-        // --- CÁC HÀM CHƠI GAME VÀ FLASHCARD (Giữ logic cũ) ---
+        // --- CÁC HÀM CHƠI GAME VÀ FLASHCARD ---
         function shuffleArray(arr) { return arr.sort(() => Math.random() - 0.5); }
         function playAudio(e, txt) {
             if(e) e.stopPropagation(); 
@@ -747,7 +767,7 @@
         }
 
         // TYPING
-        let typeItems=[], typeIdx=0, typeScore=0, typeAns=false;
+        let typeItems=[], typeIdx=0, typeScore=0, typeAns=false, currentHintLevel=0;
         function startTypingGame() {
             let pData = getPracticeWords(); typeItems = shuffleArray([...pData]).slice(0, 10);
             typeIdx = 0; typeScore = 0; document.getElementById('typing-score').innerText = typeScore;
@@ -756,31 +776,98 @@
             renderTypingQuestion();
         }
         function renderTypingQuestion() {
-            typeAns = false; const w = typeItems[typeIdx];
+            typeAns = false; currentHintLevel = 0; const w = typeItems[typeIdx];
             document.getElementById('typing-current').innerText = typeIdx + 1;
             document.getElementById('typing-vi-text').innerText = w.vi;
-            document.getElementById('typing-pos-text').innerText = w.pos ? `(${w.pos})` : '';
+            
+            let posPronHtml = '';
+            if (w.pos) posPronHtml += `<span class="mr-2">Loại từ: (${w.pos})</span>`;
+            if (w.pron) posPronHtml += `<span class="text-indigo-600 font-medium">${w.pron}</span>`;
+            document.getElementById('typing-pos-text').innerHTML = posPronHtml;
+            
             document.getElementById('typing-star').innerHTML = `<i class="${w.isHard?'fas text-amber-400':'far text-slate-300'} fa-star"></i>`;
-            const inp = document.getElementById('typing-input'); inp.value = ''; inp.disabled = false; inp.className = "w-full px-6 py-4 text-xl border-2 border-slate-200 rounded-xl text-center"; inp.focus();
-            document.getElementById('typing-feedback').classList.add('opacity-0');
-            document.getElementById('typing-submit-btn').innerText = "Kiểm tra";
+            const inp = document.getElementById('typing-input'); inp.value = ''; inp.disabled = false; 
+            inp.className = "w-full px-6 py-4 text-xl border-2 border-indigo-200 rounded-xl focus:outline-none focus:border-indigo-500 bg-indigo-50/30 transition-colors text-center text-indigo-900"; 
+            inp.focus();
+            
+            const feedbackEl = document.getElementById('typing-feedback');
+            feedbackEl.className = "h-10 flex items-center justify-center text-lg font-semibold rounded-lg opacity-0 transition-opacity mt-4";
+            feedbackEl.innerHTML = '';
+            
+            const submitBtn = document.getElementById('typing-submit-btn');
+            submitBtn.innerText = "Kiểm tra";
+            submitBtn.className = "flex-[2] sm:flex-1 py-4 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition-colors text-lg";
+            
             document.getElementById('typing-hint-btn').classList.remove('hidden');
             document.getElementById('typing-skip-btn').classList.remove('hidden');
         }
-        function showHint() { document.getElementById('typing-input').value = typeItems[typeIdx].en.substring(0,2) + '...'; }
+        function playTypingAudio(event) {
+            if(typeItems.length > 0) {
+                playAudio(event, typeItems[typeIdx].en);
+            }
+        }
+        function showHint() { 
+            if (typeAns) return;
+            const currentWord = typeItems[typeIdx].en;
+            currentHintLevel++;
+            
+            let wordNoSpaces = currentWord.replace(/[\s-]/g, '');
+            if (currentHintLevel > wordNoSpaces.length) currentHintLevel = wordNoSpaces.length; 
+            
+            let hintArr = [];
+            let revealCount = 0;
+            for (let i = 0; i < currentWord.length; i++) {
+                if (currentWord[i] === ' ' || currentWord[i] === '-') {
+                    hintArr.push(currentWord[i]);
+                } else {
+                    if (revealCount < currentHintLevel) {
+                        hintArr.push(currentWord[i]);
+                        revealCount++;
+                    } else {
+                        hintArr.push('_');
+                    }
+                }
+            }
+            
+            const feedbackEl = document.getElementById('typing-feedback');
+            feedbackEl.classList.remove('opacity-0');
+            feedbackEl.innerHTML = `<i class="far fa-lightbulb mr-2 text-amber-500"></i> Gợi ý: <strong class="ml-2 tracking-widest text-slate-700">${hintArr.join(' ')}</strong>`;
+            feedbackEl.className = 'mt-4 h-10 flex items-center justify-center text-lg font-semibold rounded-lg bg-amber-50 transition-opacity opacity-100';
+            
+            document.getElementById('typing-input').focus();
+        }
         function skipTypingQuestion() { document.getElementById('typing-input').value = typeItems[typeIdx].en; checkTypingAnswer(true); }
         function checkTypingAnswer(isSkip=false) {
             if(typeAns) return nextTypingQuestion();
             const inp = document.getElementById('typing-input'); const uAns = inp.value.trim().toLowerCase(); const cAns = typeItems[typeIdx].en.toLowerCase();
-            if(!uAns) return;
+            if(!uAns && !isSkip) return; 
+            
+            const feedbackEl = document.getElementById('typing-feedback');
+            const submitBtn = document.getElementById('typing-submit-btn');
+
             if(uAns === cAns || isSkip) {
                 typeAns = true; inp.disabled = true;
                 if(!isSkip) { typeScore++; document.getElementById('typing-score').innerText = typeScore; }
-                document.getElementById('typing-feedback').innerHTML = isSkip ? `Bỏ qua. Đáp án: ${typeItems[typeIdx].en}` : `Chính xác!`;
-                document.getElementById('typing-feedback').className = "mt-4 text-center font-bold text-green-600";
-                document.getElementById('typing-submit-btn').innerText = "Câu tiếp theo";
-                document.getElementById('typing-hint-btn').classList.add('hidden'); document.getElementById('typing-skip-btn').classList.add('hidden');
+                
+                inp.className = "w-full px-6 py-4 text-xl border-2 border-green-500 rounded-xl bg-green-50 transition-colors text-center text-green-900";
+                
+                let pronHtml = typeItems[typeIdx].pron ? ` <span class="font-normal font-mono text-base opacity-80 ml-1">${typeItems[typeIdx].pron}</span>` : '';
+                feedbackEl.innerHTML = isSkip ? `<i class="fas fa-info-circle mr-2"></i> Bỏ qua. Đáp án: <strong class="ml-1">${typeItems[typeIdx].en}</strong>${pronHtml}` : `<i class="fas fa-check-circle mr-2"></i> Chính xác: <strong class="ml-1">${typeItems[typeIdx].en}</strong>${pronHtml}`;
+                feedbackEl.className = `mt-4 h-10 flex items-center justify-center text-lg font-semibold rounded-lg transition-opacity opacity-100 ${isSkip ? 'bg-slate-200 text-slate-700' : 'bg-green-100 text-green-700'}`;
+                
+                playAudio(null, typeItems[typeIdx].en);
+
+                submitBtn.innerText = "Câu tiếp theo";
+                submitBtn.className = "w-full py-4 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 transition-colors text-lg";
+                if(isSkip) submitBtn.className = "w-full py-4 bg-slate-600 text-white font-bold rounded-xl hover:bg-slate-700 transition-colors text-lg";
+
+                document.getElementById('typing-hint-btn').classList.add('hidden'); 
+                document.getElementById('typing-skip-btn').classList.add('hidden');
             } else {
+                inp.className = "w-full px-6 py-4 text-xl border-2 border-red-500 rounded-xl focus:outline-none focus:border-red-500 bg-red-50 transition-colors text-center text-red-900";
+                feedbackEl.innerHTML = `<i class="fas fa-times-circle mr-2"></i> Chưa chính xác, hãy thử lại!`;
+                feedbackEl.className = "mt-4 h-10 flex items-center justify-center text-lg font-semibold rounded-lg bg-red-100 text-red-700 transition-opacity opacity-100";
+                
                 inp.style.animation = 'shake 0.4s'; setTimeout(()=>inp.style.animation='',400); inp.select();
             }
         }
@@ -806,6 +893,11 @@
             document.getElementById('quiz-en-text').innerText = w.en;
             document.getElementById('quiz-star').innerHTML = `<i class="${w.isHard?'fas text-amber-400':'far text-slate-300'} fa-star"></i>`;
             document.getElementById('quiz-next-container').classList.add('hidden');
+            
+            let quizInfoArr = [];
+            if (w.pron) quizInfoArr.push(w.pron);
+            if (w.pos) quizInfoArr.push(`(${w.pos})`);
+            document.getElementById('quiz-pos-pron').innerText = quizInfoArr.join(' ');
             
             let options = shuffleArray([...vocabData.filter(v=>v.id !== w.id)]).slice(0,3);
             options.push(w); options = shuffleArray(options);
