@@ -129,16 +129,17 @@
                         </div>
                     </div>
                     <div class="mt-6 pt-4 border-t border-slate-200 flex flex-col sm:flex-row items-start sm:items-center gap-3">
-                        <span class="text-sm font-semibold text-slate-600 uppercase tracking-wider"><i class="fas fa-dumbbell mr-1"></i> Luyện tập:</span>
+                        <span class="text-sm font-semibold text-slate-600 uppercase tracking-wider shrink-0"><i class="fas fa-dumbbell mr-1"></i> Luyện tập:</span>
                         <div class="flex flex-wrap gap-2 w-full sm:w-auto">
                             <button onclick="startPractice('flashcard')" class="flex-1 sm:flex-none px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition shadow-sm text-sm font-medium flex items-center justify-center whitespace-nowrap"><i class="fas fa-layer-group mr-2"></i> Thẻ Ghi Nhớ</button>
                             <button onclick="startPractice('game')" class="flex-1 sm:flex-none px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition shadow-sm text-sm font-medium flex items-center justify-center whitespace-nowrap"><i class="fas fa-gamepad mr-2"></i> Ghép Từ</button>
                             <button onclick="startPractice('typing')" class="flex-1 sm:flex-none px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 transition shadow-sm text-sm font-medium flex items-center justify-center whitespace-nowrap"><i class="fas fa-keyboard mr-2"></i> Điền Từ</button>
+                            <button onclick="startPractice('dictation')" class="flex-1 sm:flex-none px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition shadow-sm text-sm font-medium flex items-center justify-center whitespace-nowrap"><i class="fas fa-headphones mr-2"></i> Nghe & Gõ</button>
                             <button onclick="startPractice('quiz')" class="flex-1 sm:flex-none px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition shadow-sm text-sm font-medium flex items-center justify-center whitespace-nowrap"><i class="fas fa-list-ul mr-2"></i> Trắc Nghiệm</button>
                         </div>
                     </div>
                 </div>
-                <div class="overflow-x-auto">
+                <div class="overflow-x-auto mt-4 sm:mt-0">
                     <table class="w-full text-left border-collapse min-w-[800px]">
                         <thead>
                             <tr class="bg-white border-b border-slate-200 text-slate-600 text-sm">
@@ -164,21 +165,18 @@
                 <div class="text-sm font-semibold text-indigo-500 bg-indigo-50 px-3 py-1 rounded-full">Thẻ <span id="current-card-num">1</span> / <span id="total-cards">0</span></div>
             </div>
             <div class="flex justify-center mb-8 relative">
-                <!-- SỬA LỖI TẠI ĐÂY: Thêm truyền event vào hàm lật thẻ -->
                 <div id="flashcard" class="perspective w-full max-w-md h-80 sm:h-96 cursor-pointer" onclick="flipCard(event)">
                     <div class="flip-box-inner">
                         <div class="flip-box-front bg-white border-2 border-indigo-100">
                             <button id="flashcard-star-front" onclick="toggleHardFlashcard(event)" class="absolute top-4 left-4 w-10 h-10 rounded-full flex items-center justify-center transition-colors text-2xl z-20" title="Đánh dấu từ khó"><i class="far fa-star text-slate-300 hover:text-amber-400"></i></button>
                             <h2 id="card-en" class="text-4xl sm:text-5xl font-bold text-slate-800 mb-2" data-word="">Đang tải... <span class="text-2xl sm:text-3xl text-slate-400 font-normal">()</span></h2>
                             <p id="card-pron" class="text-slate-500 font-mono text-lg mb-4"></p>
-                            <!-- Cập nhật id cho nút loa mặt trước -->
                             <button id="flashcard-audio-front" class="w-12 h-12 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center hover:bg-indigo-200 transition-colors z-20 relative" title="Nghe phát âm"><i class="fas fa-volume-up text-xl"></i></button>
                         </div>
                         <div class="flip-box-back bg-indigo-600 border-2 border-indigo-600 text-white">
                             <button id="flashcard-star-back" onclick="toggleHardFlashcard(event)" class="absolute top-4 left-4 w-10 h-10 rounded-full flex items-center justify-center transition-colors text-2xl z-20" title="Đánh dấu từ khó"><i class="far fa-star text-white/50 hover:text-amber-300"></i></button>
                             <div id="card-back-en" class="text-xl sm:text-2xl font-bold mb-1 text-indigo-200" data-word=""></div>
                             <div id="card-back-pron" class="text-base sm:text-lg font-mono mb-3 text-indigo-300"></div>
-                            <!-- Thêm nút loa ở mặt sau, đặt ngay dưới phiên âm -->
                             <button id="flashcard-audio-back" class="w-12 h-12 rounded-full bg-white/20 text-white flex items-center justify-center hover:bg-white/40 transition-colors z-20 relative mb-4" title="Nghe lại tiếng Anh"><i class="fas fa-volume-up text-xl"></i></button>
                             <h3 id="card-vi" class="text-2xl sm:text-3xl font-bold text-center px-4"></h3>
                         </div>
@@ -239,7 +237,6 @@
                     </div>
                 </div>
                 <div class="mb-4 relative">
-                    <!-- SỬA TẠI ĐÂY: Xóa bỏ onkeypress cũ ở trong thẻ input -->
                     <input type="text" id="typing-input" autocomplete="off" placeholder="Nhập từ tiếng Anh..." class="w-full px-6 py-4 text-xl border-2 border-indigo-200 rounded-xl focus:outline-none focus:border-indigo-500 bg-indigo-50/30 transition-colors text-center text-indigo-900">
                     <div class="flex gap-2 mt-4">
                         <button onclick="showHint()" id="typing-hint-btn" class="flex-1 sm:flex-none sm:w-32 py-4 bg-amber-100 text-amber-700 font-bold rounded-xl hover:bg-amber-200 transition-colors flex items-center justify-center"><i class="far fa-lightbulb sm:mr-2"></i> <span class="hidden sm:inline">Gợi ý</span></button>
@@ -254,6 +251,50 @@
                     <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 text-blue-500"><i class="fas fa-medal text-4xl"></i></div>
                     <h2 class="text-2xl font-bold text-slate-800 mb-2">Hoàn thành!</h2>
                     <button onclick="startTypingGame()" class="w-full py-3 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition">Chơi Lại Vòng Khác</button>
+                    <button onclick="exitPractice()" class="w-full py-3 mt-3 bg-slate-100 text-slate-600 rounded-xl font-bold hover:bg-slate-200 transition">Quay lại danh sách</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: DICTATION GAME (NGHE VÀ GÕ) -->
+        <section id="view-dictation" class="hidden">
+            <div class="mb-6 flex justify-between items-center bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                <button onclick="exitPractice()" class="text-slate-500 hover:text-pink-600 font-medium flex items-center transition"><i class="fas fa-arrow-left mr-2"></i> Quay lại</button>
+                <div class="flex items-center gap-4">
+                    <div class="text-sm font-semibold text-pink-600 bg-pink-50 px-3 py-1 rounded-full">Câu: <span id="dictation-current">1</span>/<span id="dictation-total">10</span> | Điểm: <span id="dictation-score">0</span></div>
+                    <button onclick="startDictationGame()" class="text-slate-500 hover:text-pink-600 transition" title="Chơi lại"><i class="fas fa-sync-alt"></i></button>
+                </div>
+            </div>
+            <div class="max-w-xl mx-auto bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200 text-center">
+                
+                <div class="flex justify-between items-center w-full mb-4">
+                    <div></div> <!-- Spacer -->
+                    <button id="dictation-star" onclick="toggleHardDictation(event)" class="text-2xl transition-colors focus:outline-none" title="Đánh dấu từ khó"><i class="far fa-star text-slate-300"></i></button>
+                </div>
+
+                <div class="flex flex-col justify-center items-center mb-8">
+                    <p class="text-slate-500 text-sm mb-4 uppercase tracking-wider font-semibold">Lắng nghe và gõ lại từ</p>
+                    <button onclick="playDictationAudio(event)" class="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-pink-100 text-pink-500 flex items-center justify-center hover:bg-pink-200 transition-transform transform hover:scale-105 shadow-inner" title="Nghe phát âm">
+                        <i class="fas fa-volume-up text-4xl sm:text-5xl"></i>
+                    </button>
+                </div>
+
+                <div class="mb-4 relative">
+                    <input type="text" id="dictation-input" autocomplete="off" placeholder="Gõ từ tiếng Anh bạn nghe được..." class="w-full px-6 py-4 text-xl border-2 border-pink-200 rounded-xl focus:outline-none focus:border-pink-500 bg-pink-50/30 transition-colors text-center text-pink-900">
+                    <div class="flex gap-2 mt-4">
+                        <button onclick="showDictationHint()" id="dictation-hint-btn" class="flex-1 sm:flex-none sm:w-32 py-4 bg-amber-100 text-amber-700 font-bold rounded-xl hover:bg-amber-200 transition-colors flex items-center justify-center"><i class="far fa-lightbulb sm:mr-2"></i> <span class="hidden sm:inline">Gợi ý</span></button>
+                        <button onclick="checkDictationAnswer()" id="dictation-submit-btn" class="flex-[2] sm:flex-1 py-4 bg-pink-600 text-white font-bold rounded-xl hover:bg-pink-700 transition-colors text-lg">Kiểm tra</button>
+                        <button onclick="skipDictationQuestion()" id="dictation-skip-btn" class="flex-1 sm:flex-none sm:w-32 py-4 bg-slate-200 text-slate-600 font-bold rounded-xl hover:bg-slate-300 transition-colors flex items-center justify-center"><span class="hidden sm:inline sm:mr-2">Bỏ qua</span> <i class="fas fa-forward"></i></button>
+                    </div>
+                </div>
+                <div id="dictation-feedback" class="h-10 flex items-center justify-center text-lg font-semibold rounded-lg opacity-0 transition-opacity mt-4"></div>
+            </div>
+            <div id="dictation-win-modal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center px-4">
+                <div class="bg-white rounded-2xl p-8 max-w-sm w-full text-center shadow-2xl">
+                    <div class="w-20 h-20 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-4 text-pink-500"><i class="fas fa-headphones text-4xl"></i></div>
+                    <h2 class="text-2xl font-bold text-slate-800 mb-2">Thính giác tuyệt vời!</h2>
+                    <p class="text-slate-600 mb-6">Bạn đạt <span id="dictation-final-score" class="font-bold text-pink-600"></span> điểm phần Nghe & Gõ.</p>
+                    <button onclick="startDictationGame()" class="w-full py-3 bg-pink-600 text-white rounded-xl font-bold hover:bg-pink-700 transition">Chơi Lại Vòng Khác</button>
                     <button onclick="exitPractice()" class="w-full py-3 mt-3 bg-slate-100 text-slate-600 rounded-xl font-bold hover:bg-slate-200 transition">Quay lại danh sách</button>
                 </div>
             </div>
@@ -550,7 +591,7 @@
 
         // --- NAVIGATION & VIEWS ---
         function hideAllViews() {
-            ['view-manage', 'view-flashcard', 'view-game', 'view-typing', 'view-quiz'].forEach(v => document.getElementById(v).classList.add('hidden'));
+            ['view-manage', 'view-flashcard', 'view-game', 'view-typing', 'view-dictation', 'view-quiz'].forEach(v => document.getElementById(v).classList.add('hidden'));
         }
 
         function showHome() {
@@ -572,6 +613,7 @@
             if (mode === 'flashcard') { flashcardList = [...words]; currentCardIndex = 0; updateCardDisplay(); }
             else if (mode === 'game') startNewGame();
             else if (mode === 'typing') startTypingGame();
+            else if (mode === 'dictation') startDictationGame();
             else if (mode === 'quiz') startQuizGame();
         }
 
@@ -743,7 +785,6 @@
             updateCardDisplay(); 
         }
         
-        // SỬA LỖI TẠI ĐÂY: Thêm logic chặn hành vi lật thẻ nếu người dùng click vào button
         function flipCard(e) { 
             if (e && (e.target.closest('button') || e.target.tagName.toLowerCase() === 'button')) return;
             
@@ -925,6 +966,106 @@
         }
         function toggleHardTyping(e) { if(e) e.stopPropagation(); typeItems[typeIdx].isHard = toggleHard(typeItems[typeIdx].id); document.getElementById('typing-star').innerHTML = `<i class="${typeItems[typeIdx].isHard?'fas text-amber-400':'far text-slate-300'} fa-star"></i>`; }
 
+        // DICTATION GAME (NGHE VÀ GÕ)
+        let dictItems=[], dictIdx=0, dictScore=0, dictAns=false, dictHintLevel=0;
+        function startDictationGame() {
+            let pData = getPracticeWords(); dictItems = shuffleArray([...pData]).slice(0, 10);
+            dictIdx = 0; dictScore = 0; document.getElementById('dictation-score').innerText = dictScore;
+            document.getElementById('dictation-total').innerText = dictItems.length;
+            document.getElementById('dictation-win-modal').classList.add('hidden');
+            renderDictationQuestion();
+        }
+        function renderDictationQuestion() {
+            dictAns = false; dictHintLevel = 0; const w = dictItems[dictIdx];
+            document.getElementById('dictation-current').innerText = dictIdx + 1;
+            
+            document.getElementById('dictation-star').innerHTML = `<i class="${w.isHard?'fas text-amber-400':'far text-slate-300'} fa-star"></i>`;
+            const inp = document.getElementById('dictation-input'); inp.value = ''; inp.disabled = false; 
+            inp.className = "w-full px-6 py-4 text-xl border-2 border-pink-200 rounded-xl focus:outline-none focus:border-pink-500 bg-pink-50/30 transition-colors text-center text-pink-900"; 
+            inp.focus();
+            
+            const feedbackEl = document.getElementById('dictation-feedback');
+            feedbackEl.className = "h-10 flex items-center justify-center text-lg font-semibold rounded-lg opacity-0 transition-opacity mt-4";
+            feedbackEl.innerHTML = '';
+            
+            const submitBtn = document.getElementById('dictation-submit-btn');
+            submitBtn.innerText = "Kiểm tra";
+            submitBtn.className = "flex-[2] sm:flex-1 py-4 bg-pink-600 text-white font-bold rounded-xl hover:bg-pink-700 transition-colors text-lg";
+            
+            document.getElementById('dictation-hint-btn').classList.remove('hidden');
+            document.getElementById('dictation-skip-btn').classList.remove('hidden');
+
+            // Tự động phát âm thanh khi qua câu mới (delay nhẹ để tránh giật)
+            setTimeout(() => playDictationAudio(), 300);
+        }
+        function playDictationAudio(event) {
+            if(event) { event.stopPropagation(); event.preventDefault(); }
+            if(dictItems.length > 0) {
+                playAudio(null, dictItems[dictIdx].en);
+            }
+        }
+        function showDictationHint() { 
+            if (dictAns) return;
+            const currentWord = dictItems[dictIdx].en;
+            const currentVi = dictItems[dictIdx].vi;
+            
+            const feedbackEl = document.getElementById('dictation-feedback');
+            feedbackEl.classList.remove('opacity-0');
+            
+            if (dictHintLevel === 0) {
+                // Gợi ý 1: Hiển thị nghĩa tiếng Việt
+                feedbackEl.innerHTML = `<i class="far fa-lightbulb mr-2 text-amber-500"></i> Nghĩa: <strong class="ml-2 text-slate-700">${currentVi}</strong>`;
+                dictHintLevel++;
+            } else {
+                // Gợi ý 2: Hiển thị 2 chữ cái đầu tiên
+                feedbackEl.innerHTML = `<i class="far fa-lightbulb mr-2 text-amber-500"></i> Gợi ý: <strong class="ml-2 tracking-widest text-slate-700">${currentWord.substring(0,2)}... (${currentVi})</strong>`;
+            }
+            
+            feedbackEl.className = 'mt-4 h-10 flex items-center justify-center text-lg font-semibold rounded-lg bg-amber-50 transition-opacity opacity-100';
+            document.getElementById('dictation-input').focus();
+        }
+        function skipDictationQuestion() { document.getElementById('dictation-input').value = dictItems[dictIdx].en; checkDictationAnswer(true); }
+        function checkDictationAnswer(isSkip=false) {
+            if(dictAns) return nextDictationQuestion();
+            const inp = document.getElementById('dictation-input'); const uAns = inp.value.trim().toLowerCase(); const cAns = dictItems[dictIdx].en.toLowerCase();
+            if(!uAns && !isSkip) return; 
+            
+            const feedbackEl = document.getElementById('dictation-feedback');
+            const submitBtn = document.getElementById('dictation-submit-btn');
+
+            if(uAns === cAns || isSkip) {
+                dictAns = true; inp.disabled = true;
+                if(!isSkip) { dictScore++; document.getElementById('dictation-score').innerText = dictScore; }
+                
+                inp.className = "w-full px-6 py-4 text-xl border-2 border-green-500 rounded-xl bg-green-50 transition-colors text-center text-green-900";
+                
+                let pronHtml = dictItems[dictIdx].pron ? ` <span class="font-normal font-mono text-base opacity-80 ml-1">${dictItems[dictIdx].pron}</span>` : '';
+                feedbackEl.innerHTML = isSkip ? `<i class="fas fa-info-circle mr-2"></i> Bỏ qua. Đáp án: <strong class="ml-1">${dictItems[dictIdx].en}</strong>${pronHtml} - ${dictItems[dictIdx].vi}` : `<i class="fas fa-check-circle mr-2"></i> Chính xác: <strong class="ml-1">${dictItems[dictIdx].en}</strong>${pronHtml} - ${dictItems[dictIdx].vi}`;
+                feedbackEl.className = `mt-4 h-10 flex items-center justify-center text-base sm:text-lg font-semibold rounded-lg transition-opacity opacity-100 ${isSkip ? 'bg-slate-200 text-slate-700' : 'bg-green-100 text-green-700'}`;
+                
+                // Không tự đọc lại khi trả lời đúng để tránh ồn ào, nếu user muốn nghe thì bấm loa
+
+                submitBtn.innerText = "Câu tiếp theo";
+                submitBtn.className = "w-full py-4 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 transition-colors text-lg";
+                if(isSkip) submitBtn.className = "w-full py-4 bg-slate-600 text-white font-bold rounded-xl hover:bg-slate-700 transition-colors text-lg";
+
+                document.getElementById('dictation-hint-btn').classList.add('hidden'); 
+                document.getElementById('dictation-skip-btn').classList.add('hidden');
+            } else {
+                inp.className = "w-full px-6 py-4 text-xl border-2 border-red-500 rounded-xl focus:outline-none focus:border-red-500 bg-red-50 transition-colors text-center text-red-900";
+                feedbackEl.innerHTML = `<i class="fas fa-times-circle mr-2"></i> Chưa chính xác, hãy nghe lại!`;
+                feedbackEl.className = "mt-4 h-10 flex items-center justify-center text-lg font-semibold rounded-lg bg-red-100 text-red-700 transition-opacity opacity-100";
+                
+                inp.style.animation = 'shake 0.4s'; setTimeout(()=>inp.style.animation='',400); inp.select();
+            }
+        }
+        function nextDictationQuestion() {
+            dictIdx++; if(dictIdx < dictItems.length) renderDictationQuestion();
+            else { document.getElementById('dictation-final-score').innerText = dictScore; document.getElementById('dictation-win-modal').classList.remove('hidden'); }
+        }
+        function toggleHardDictation(e) { if(e) e.stopPropagation(); dictItems[dictIdx].isHard = toggleHard(dictItems[dictIdx].id); document.getElementById('dictation-star').innerHTML = `<i class="${dictItems[dictIdx].isHard?'fas text-amber-400':'far text-slate-300'} fa-star"></i>`; }
+
+
         // QUIZ
         let qItems=[], qIdx=0, qScore=0, qAns=false;
         function startQuizGame() {
@@ -982,18 +1123,26 @@
                 const typingView = document.getElementById('view-typing');
                 const typingWin = document.getElementById('typing-win-modal');
                 if (!typingView.classList.contains('hidden') && typingWin.classList.contains('hidden')) {
-                    event.preventDefault(); // Ngăn chặn các hành vi nảy sinh khác của trình duyệt
+                    event.preventDefault(); 
                     checkTypingAnswer();
                 }
 
-                // 2. Phím Enter cho game Trắc Nghiệm (chuyển câu tiếp theo)
+                // 2. Phím Enter cho game Trắc Nghiệm
                 const quizView = document.getElementById('view-quiz');
                 const quizWin = document.getElementById('quiz-win-modal');
                 if (!quizView.classList.contains('hidden') && quizWin.classList.contains('hidden')) {
-                    if (qAns) { // Chỉ cho phép ấn Enter để qua câu khi đã chọn đáp án
+                    if (qAns) { 
                         event.preventDefault();
                         nextQuizQuestion();
                     }
+                }
+
+                // 3. Phím Enter cho game Nghe & Gõ
+                const dictView = document.getElementById('view-dictation');
+                const dictWin = document.getElementById('dictation-win-modal');
+                if (!dictView.classList.contains('hidden') && dictWin.classList.contains('hidden')) {
+                    event.preventDefault(); 
+                    checkDictationAnswer();
                 }
             }
         });
