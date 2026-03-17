@@ -6,7 +6,7 @@ const XLSX = require('xlsx');
 const { exec } = require('child_process'); // Thêm thư viện gọi lệnh hệ thống (có sẵn của Node.js)
 
 const app = express();
-const PORT = 3000;
+const PORT = 3005;
 const DB_FILE = path.join(__dirname, 'database.xlsx');
 
 // Middleware
